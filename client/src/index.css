@@ -1,0 +1,146 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #6366f1;
+  --color-primary-hover: #4f46e5;
+  --color-accent: #f43f5e;
+  --color-bg-dark: #020617;
+  --color-bg-light: #f8fafc;
+
+  /* Slate palette for high contrast */
+  --color-slate-50: #f8fafc;
+  --color-slate-100: #f1f5f9;
+  --color-slate-200: #e2e8f0;
+  --color-slate-300: #cbd5e1;
+  --color-slate-400: #94a3b8;
+  --color-slate-500: #64748b;
+  --color-slate-600: #475569;
+  --color-slate-700: #334155;
+  --color-slate-800: #1e293b;
+  --color-slate-900: #0f172a;
+  --color-slate-950: #020617;
+}
+
+@layer base {
+  body {
+    @apply transition-colors duration-500 selection:bg-indigo-500/30;
+  }
+}
+
+:root {
+  --background: #f1f5f9;
+  --foreground: #020617;
+  --card-bg: rgba(255, 255, 255, 0.95);
+  --border-color: rgba(148, 163, 184, 0.2);
+  --mesh-opacity: 0.1;
+
+  /* Text Contrast variables */
+  --text-primary: #020617;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --text-accent: #4f46e5;
+}
+
+.dark {
+  --background: #000000;
+  --foreground: #f8fafc;
+  --card-bg: rgba(23, 37, 84, 0.4);
+  --border-color: rgba(255, 255, 255, 0.12);
+  --mesh-opacity: 0.25;
+
+  /* Text Contrast variables */
+  --text-primary: #ffffff;
+  --text-secondary: #e2e8f0;
+  --text-muted: #94a3b8;
+  --text-accent: #818cf8;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  min-height: 100vh;
+  font-family: 'Outfit', 'Inter', sans-serif;
+  overflow-x: hidden;
+}
+
+.glass-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--border-color);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.1),
+    0 8px 16px rgba(0, 0, 0, 0.1),
+    0 16px 32px rgba(0, 0, 0, 0.1),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+.dark .glass-card {
+  box-shadow:
+    0 10px 20px rgba(0, 0, 0, 0.5),
+    0 20px 40px rgba(0, 0, 0, 0.5),
+    inset 0 1px 1px rgba(255, 255, 255, 0.05);
+}
+
+/* Optimized Mesh Background */
+@keyframes meshShift {
+
+  0%,
+  100% {
+    opacity: var(--mesh-opacity);
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: calc(var(--mesh-opacity) * 1.5);
+    transform: scale(1.1);
+  }
+}
+
+.bg-mesh {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  opacity: var(--mesh-opacity);
+  pointer-events: none;
+  background-image:
+    radial-gradient(at 0% 0%, #4f46e5 0, transparent 45%),
+    radial-gradient(at 100% 0%, #7c3aed 0, transparent 45%),
+    radial-gradient(at 50% 50%, #06b6d4 0, transparent 45%),
+    radial-gradient(at 0% 100%, #8b5cf6 0, transparent 45%),
+    radial-gradient(at 100% 100%, #4f46e5 0, transparent 45%);
+  animation: meshShift 15s ease-in-out infinite;
+  filter: blur(80px);
+  /* Slightly reduced blur for better performance */
+  will-change: opacity, transform;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #e2e8f0;
+  border-radius: 10px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #1e293b;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+
+/* Button styles */
+.btn-primary {
+  @apply bg-indigo-600 hover:bg-indigo-700 text-white shadow-xl shadow-indigo-600/30 transition-all duration-300 transform active:scale-95 flex items-center justify-center;
+}
